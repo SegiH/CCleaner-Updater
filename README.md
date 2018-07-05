@@ -2,8 +2,6 @@ CCleaner-Updater is an application that can run silently in the background and w
 
 If an update is found it will be downloaded and silently installed. If you have User Access Control enabled in Windows, UAC may still prompt you before the installation starts.
 
-Given the [CCleaner malware](https://www.pcworld.com/article/3225407/security/ccleaner-downloads-infected-malware.html) that was discovered a few months ago, I don't feel comfortable using CCleaner any more but am making the source code to my app available to anyone who wants to use it.
-
 Installation instructions:
 
 Open the project in Visual Studio
