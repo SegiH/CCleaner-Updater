@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_41B4EBBF8F97D8DB294BBF9DA1473093"
+        "MsmKey" = "8:_82E19D6A5E8294691F171C71DAD19533"
         "OwnerKey" = "8:_B558BFE40777435F83D7AB8A55EA8D8D"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -27,13 +27,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CEFAD737E94F30B1AF3098CB4F8DE408"
+        "MsmKey" = "8:_D3038DDE363FD2F5CDEECB667CBE3E32"
         "OwnerKey" = "8:_B558BFE40777435F83D7AB8A55EA8D8D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D3038DDE363FD2F5CDEECB667CBE3E32"
+        "MsmKey" = "8:_D41BD0D549376C8D1A05B8B0EC72CD70"
         "OwnerKey" = "8:_B558BFE40777435F83D7AB8A55EA8D8D"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -46,31 +46,31 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D3038DDE363FD2F5CDEECB667CBE3E32"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B558BFE40777435F83D7AB8A55EA8D8D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CEFAD737E94F30B1AF3098CB4F8DE408"
+        "OwnerKey" = "8:_D41BD0D549376C8D1A05B8B0EC72CD70"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_41B4EBBF8F97D8DB294BBF9DA1473093"
+        "OwnerKey" = "8:_82E19D6A5E8294691F171C71DAD19533"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D8EDDA69C01F22E48ECC0514B5FBE6EB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D3038DDE363FD2F5CDEECB667CBE3E32"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -91,6 +91,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -107,6 +115,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -136,14 +160,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_41B4EBBF8F97D8DB294BBF9DA1473093"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_82E19D6A5E8294691F171C71DAD19533"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:jint, Version=2.10.4.0, Culture=neutral, PublicKeyToken=2e92ba9c8d81157f, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_41B4EBBF8F97D8DB294BBF9DA1473093"
+                    "_82E19D6A5E8294691F171C71DAD19533"
                     {
                     "Name" = "8:jint.dll"
                     "Attributes" = "3:512"
@@ -152,38 +176,7 @@
             "SourcePath" = "8:jint.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_71692BA7EA7D4433A3CC107BBF250940"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CEFAD737E94F30B1AF3098CB4F8DE408"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NSoup, Version=0.8.0.0, Culture=neutral, PublicKeyToken=6d44e53f0a65e802, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_CEFAD737E94F30B1AF3098CB4F8DE408"
-                    {
-                    "Name" = "8:NSoup.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:NSoup.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_71692BA7EA7D4433A3CC107BBF250940"
+            "Folder" = "8:_CDC423028ECB45A3853E9073C0BE3691"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -214,7 +207,38 @@
             "SourcePath" = "8:System.Diagnostics.Contracts.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_71692BA7EA7D4433A3CC107BBF250940"
+            "Folder" = "8:_CDC423028ECB45A3853E9073C0BE3691"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D41BD0D549376C8D1A05B8B0EC72CD70"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NSoup, Version=0.8.0.0, Culture=neutral, PublicKeyToken=6d44e53f0a65e802, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D41BD0D549376C8D1A05B8B0EC72CD70"
+                    {
+                    "Name" = "8:NSoup.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NSoup.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_CDC423028ECB45A3853E9073C0BE3691"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -245,7 +269,7 @@
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_71692BA7EA7D4433A3CC107BBF250940"
+            "Folder" = "8:_CDC423028ECB45A3853E9073C0BE3691"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -290,7 +314,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_CDC423028ECB45A3853E9073C0BE3691"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder]\\CCleaner Updater"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -317,7 +341,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:CCleaner Updater Installer"
         "ProductCode" = "8:{DFA54F2E-EE2D-40A2-BED2-AC46E015DA74}"
-        "PackageCode" = "8:{02A599F1-020E-46BA-9726-1545AAE6E6BC}"
+        "PackageCode" = "8:{1FD62F4F-4851-437E-96B9-FD73F0759D38}"
         "UpgradeCode" = "8:{60F79A9D-4779-4565-B461-E29B9825CAA7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -841,7 +865,7 @@
             "SourcePath" = "8:..\\CCleaner Updater\\obj\\Release\\CCleaner Updater.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_71692BA7EA7D4433A3CC107BBF250940"
+            "Folder" = "8:_CDC423028ECB45A3853E9073C0BE3691"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

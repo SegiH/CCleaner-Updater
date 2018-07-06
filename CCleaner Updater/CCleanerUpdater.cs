@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.IO;
 using System.Text;
-//using static System.Threading.Tasks.TaskCanceledException;
+using System.ComponentModel;
 
 namespace CCleaner_Updater
 {
@@ -14,7 +14,7 @@ namespace CCleaner_Updater
     {
         FileVersionInfo f; // Object to get version from EXE
         bool silentRun;
-        const String downloadURL = "http://www.piriform.com/ccleaner/download/slim"; // This URL contains the download link to download the latest slim version of CCleaner which doesn't have a toolbar installed
+        const String downloadURL = "http://www.piriform.com/ccleaner/download/standard"; // This URL contains the download link to download the latest slim version of CCleaner which doesn't have a toolbar installed
         const String latestVersionURL = "http://www.piriform.com/ccleaner/download/"; // This page contains the latest version
 
         // Constructor that is called when app is run the normal way
@@ -42,7 +42,7 @@ namespace CCleaner_Updater
             }            
         }
 
-        // Event when this app is run normally.
+        // Event when this app is run normally using the UI.
         private void CCleanerUpdater_Load(object sender, EventArgs e) {
             // Make sure that network is available
             if (isNetworkAvailable() == false) {
@@ -77,6 +77,46 @@ namespace CCleaner_Updater
 
             //this.components = new System.ComponentModel.Container();
             //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        }
+
+        // Check for updates now button click event
+        private void btnCheckUpdatesNow_Click(object sender, EventArgs e) {
+            checkforUpdates();
+        }
+
+        // Event when the user clicks on the button to select the path to CCleaner.exe
+        private void btnSelectCCleanerPath_Click(object sender, EventArgs e) {
+            // Show select file dialog with filter to only allow the user to select ccleaner.exe
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "CCleaner|CCleaner.exe";
+
+            // If CCleaner is found in one of the default locations (C:\Program Files\CCleaner\ccleaner.exe or C:\Program Files (x86)\CCleaner\ccleaner.exe) 
+            // select that directory as the default location
+            if (File.Exists("C:\\Program Files\\CCleaner\\ccleaner.exe")) {
+                dialog.InitialDirectory = @"C:\\Program Files\\CCleaner\\";
+            }
+            else if (File.Exists("C:\\Program Files ((x86)\\CCleaner\\ccleaner.exe")) {
+                dialog.InitialDirectory = @"C:\\Program Files ((x86)\\CCleaner\\";
+            }
+            else {
+                dialog.InitialDirectory = @"C:\";
+            }
+
+            dialog.Title = "Please select CCleaner.exe";
+
+            // When the user clicks on OK, fill in text field and save pref. Otherwise erase pref
+            if (dialog.ShowDialog() == DialogResult.OK) {
+                txtCCleanerPath.Text = dialog.FileName;
+
+                // Save preference
+                saveProperty("CCleanerPath", dialog.FileName);
+            }
+            else {
+                txtCCleanerPath.Text = "";
+
+                // Save preference
+                saveProperty("CCleanerPath", "");
+            }
         }
 
         // Checks the CCleaner site for an update by scraping the download page for the currently released version
@@ -165,8 +205,8 @@ namespace CCleaner_Updater
 
                             // Delete the file
                             File.Delete("ccsetup.exe");
-                        } catch (OperationCanceledException e) { // Don't show error if the user canceled the installation or clicked on No on the UAC prompt
-                                 MessageBox.Show("");
+                        } catch (Win32Exception) { // Don't show error if the user canceled the installation or clicked on No on the UAC prompt
+                                 MessageBox.Show("Canceled");
                         } catch (Exception e) {
                             if (silentRun == false) {
                                  MessageBox.Show("An error occurred while installing the latest version of CCleaner. Error: " + e.ToString());
@@ -192,12 +232,17 @@ namespace CCleaner_Updater
             }
         }
 
+        // Ask me before updating CCleaner checkbox state change
+        private void chkUpdatePrompt_CheckedChanged(object sender, EventArgs e) {
+            saveProperty("PromptUser", (chkUpdatePrompt.Checked == true ? true : false));
+        }
+
         // Get the download URL from the CCleaner site
         string getDownloadLink() {
-            /*
+            
             string downloadLink="";
 
-            deleteme = readURL("https://www.piriform.com/ccleaner/download/slim/downloadfile");
+            //deleteme = readURL(downloadLink);
 
            // Retrieve all of the HTML code from the download page
             string downLoadLinkData = readURL(downloadURL);
@@ -218,10 +263,10 @@ namespace CCleaner_Updater
                 }
            }
 
-            return downloadLink;*/
+            return downloadLink;
             
             // Since this URL for the slim download always redirects to the latest installer, I down't need to scrap the HTML for a download link
-            return "https://www.piriform.com/ccleaner/download/slim/downloadfile";
+            //return "https://www.piriform.com/ccleaner/download/slim/downloadfile";
         }
 
         // Get the latest version of CCleaner that is installed on this machine
@@ -251,6 +296,8 @@ namespace CCleaner_Updater
                 f = FileVersionInfo.GetVersionInfo(filePath);
 
                 installedCCleanerVersion = f.ProductVersion;
+
+                installedCCleanerVersion = installedCCleanerVersion.Split('.')[0] + "." + installedCCleanerVersion.Split('.')[1] + "." + installedCCleanerVersion.Split('.')[3];
 
                 // Remove v from beginning of the version if its there
                 if (installedCCleanerVersion != null && installedCCleanerVersion.StartsWith("v")) {
@@ -286,7 +333,8 @@ namespace CCleaner_Updater
             // Use NSoup to parse the HTML and find the latest version number
             NSoup.Nodes.Document doc = NSoupClient.Parse(currentVersionData);
 
-            NSoup.Nodes.Element el = doc.GetElementsByClass("icon_edit").First.NextElementSibling;
+            NSoup.Nodes.Element el = doc.GetElementsByClass("icon_square")[1].NextElementSibling;
+            //el = el.GetElementsByTag("indent").First;
             el = el.GetElementsByTag("strong").First;
 
             latestVersion = el.Html().ToString();
@@ -367,48 +415,6 @@ namespace CCleaner_Updater
         private void saveProperty(string propertyName,object propertyValue) {
             Properties.Settings.Default[propertyName] = propertyValue;
             Properties.Settings.Default.Save();
-        }
-
-        // Check for updates now button click event
-        private void btnCheckUpdatesNow_Click(object sender, EventArgs e) {
-            checkforUpdates();
-        }
-
-        // Event when the user clicks on the button to select the path to CCleaner.exe
-        private void btnSelectCCleanerPath_Click(object sender, EventArgs e) {
-            // Show select file dialog with filter to only allow the user to select ccleaner.exe
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "CCleaner|CCleaner.exe";
-
-            // If CCleaner is found in one of the default locations (C:\Program Files\CCleaner\ccleaner.exe or C:\Program Files (x86)\CCleaner\ccleaner.exe) 
-            // select that directory as the default location
-            if (File.Exists("C:\\Program Files\\CCleaner\\ccleaner.exe")) {
-                dialog.InitialDirectory = @"C:\\Program Files\\CCleaner\\";
-           } else if (File.Exists("C:\\Program Files ((x86)\\CCleaner\\ccleaner.exe")) {
-                dialog.InitialDirectory = @"C:\\Program Files ((x86)\\CCleaner\\";
-            } else {
-                dialog.InitialDirectory = @"C:\";
-            }
-            
-            dialog.Title = "Please select CCleaner.exe";
-
-            // When the user clicks on OK, fill in text field and save pref. Otherwise erase pref
-            if (dialog.ShowDialog() == DialogResult.OK) {
-                txtCCleanerPath.Text = dialog.FileName;
-
-                // Save preference
-                saveProperty("CCleanerPath", dialog.FileName);
-            } else {
-                txtCCleanerPath.Text = "";
-
-                // Save preference
-                saveProperty("CCleanerPath", "");
-            }
-        }
-
-        // Ask me before updating CCleaner checkbox state change
-        private void chkUpdatePrompt_CheckedChanged(object sender, EventArgs e) {
-            saveProperty("PromptUser", (chkUpdatePrompt.Checked == true ? true : false));
-        }
+        }   
     }
 }

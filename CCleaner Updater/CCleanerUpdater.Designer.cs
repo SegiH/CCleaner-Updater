@@ -114,7 +114,7 @@ namespace CCleaner_Updater {
             // 
             // CCleanerUpdater
             // 
-            this.ClientSize = new System.Drawing.Size(664, 279);
+            this.ClientSize = new System.Drawing.Size(537, 279);
             this.Controls.Add(this.lblCurrentVersion);
             this.Controls.Add(this.installedVersion);
             this.Controls.Add(this.btnCheckUpdatesNow);
