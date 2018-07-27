@@ -224,7 +224,7 @@ namespace CCleaner_Updater
                     }
                 }
             } else if (silentRun == false) {
-                MessageBox.Show("There is no update available for CCleaner");
+                MessageBox.Show("An update is not available for CCleaner");
             }
 
             if (silentRun == true) {
@@ -322,6 +322,9 @@ namespace CCleaner_Updater
         string getLatestCCleanerVersion() {
             String latestVersion;
 
+            // DELETE LATER
+            String latestVersionURL = "https://www.ccleaner.com/ccleaner/version-history";
+
             // Read the current version from the CCleaner site
             string currentVersionData = this.readURL(latestVersionURL);
 
@@ -333,11 +336,19 @@ namespace CCleaner_Updater
             // Use NSoup to parse the HTML and find the latest version number
             NSoup.Nodes.Document doc = NSoupClient.Parse(currentVersionData);
 
+            NSoup.Nodes.Element el = doc.GetElementsByClass("main-content-column")[0].Children.Eq(1).First;
+            /*
             NSoup.Nodes.Element el = doc.GetElementsByClass("icon_square")[1].NextElementSibling;
             //el = el.GetElementsByTag("indent").First;
             el = el.GetElementsByTag("strong").First;
-
+            */
             latestVersion = el.Html().ToString();
+
+            latestVersion = latestVersion.Replace("<h6>", "");
+            latestVersion = latestVersion.Replace("</h6>", "");
+
+            String []tmp = latestVersion.Split(' ');
+            latestVersion = tmp[0];
 
             if (latestVersion != null && latestVersion.StartsWith("v")) {
                 latestVersion = latestVersion.Substring(1);
