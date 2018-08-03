@@ -14,8 +14,8 @@ namespace CCleaner_Updater
     {
         FileVersionInfo f; // Object to get version from EXE
         bool silentRun;
-        const String downloadURL = "http://www.piriform.com/ccleaner/download/standard"; // This URL contains the download link to download the latest slim version of CCleaner which doesn't have a toolbar installed
-        const String latestVersionURL = "http://www.piriform.com/ccleaner/download/"; // This page contains the latest version
+        const String downloadURL = "http://www.piriform.com/ccleaner/download/standard"; // This URL contains the download link to download the latest version of CCleaner which doesn't have a toolbar installed
+        const String latestVersionURL = "https://www.ccleaner.com/ccleaner/version-history"; // This page contains the version history which is parsed for the latest version
 
         // Constructor that is called when app is run the normal way
         /*public CCleanerUpdater() {
@@ -24,7 +24,7 @@ namespace CCleaner_Updater
 
         // Constructor called when the app is run from the command line
         public CCleanerUpdater(Boolean silentRun) {
-            // Make sure that network is available
+            // Make sure that a network connection is available
             if (isNetworkAvailable() == false) {
                 MessageBox.Show("Internet connection not available. Exiting");
                 System.Environment.Exit(1);
@@ -60,7 +60,7 @@ namespace CCleaner_Updater
                     txtCCleanerPath.Text = "C:\\Program Files ((x86)\\CCleaner\\ccleaner.exe";
                     saveProperty("CCleanerPath", "C:\\Program Files ((x86)\\CCleaner\\ccleaner.exe");
                 }
-            } else { // Use user provided path
+            } else { // Use the path that the user previously provided
                 txtCCleanerPath.Text = Properties.Settings.Default.CCleanerPath;
             }
             
@@ -164,7 +164,7 @@ namespace CCleaner_Updater
                         // Get the size of the file. Sometimes the file will not successfully download but leave a 1k file. This verifies the file size
                         long length = new System.IO.FileInfo("ccsetup.exe").Length;
 
-                        // The file is less than 1MB so it s probably corrupt
+                        // The file is less than 1MB, it is probably corrupt
                         if (length < 1000000) {
                             // Delete the file
                             File.Delete("ccsetup.exe");
@@ -224,7 +224,7 @@ namespace CCleaner_Updater
                     }
                 }
             } else if (silentRun == false) {
-                MessageBox.Show("An update is not available for CCleaner");
+                MessageBox.Show("CCleaner is up to date");
             }
 
             if (silentRun == true) {
@@ -238,11 +238,8 @@ namespace CCleaner_Updater
         }
 
         // Get the download URL from the CCleaner site
-        string getDownloadLink() {
-            
+        string getDownloadLink() {            
             string downloadLink="";
-
-            //deleteme = readURL(downloadLink);
 
            // Retrieve all of the HTML code from the download page
             string downLoadLinkData = readURL(downloadURL);
@@ -264,9 +261,6 @@ namespace CCleaner_Updater
            }
 
             return downloadLink;
-            
-            // Since this URL for the slim download always redirects to the latest installer, I down't need to scrap the HTML for a download link
-            //return "https://www.piriform.com/ccleaner/download/slim/downloadfile";
         }
 
         // Get the latest version of CCleaner that is installed on this machine
@@ -276,7 +270,7 @@ namespace CCleaner_Updater
 
             // Use user specified path if it is set
             if (!Properties.Settings.Default.CCleanerPath.Equals("")) {
-                // Validate that the executable
+                // Validate that the executable exists
                 if (!File.Exists(Properties.Settings.Default.CCleanerPath)) {
                     return ""; // This indicates that  either CCleaner isn't installed or can't be found in the user specified location. Returns an empty string so CCleaner will be initially installed
                 } else {
@@ -321,9 +315,6 @@ namespace CCleaner_Updater
         // Get the latest version of CCleaner from the CClaner site
         string getLatestCCleanerVersion() {
             String latestVersion;
-
-            // DELETE LATER
-            String latestVersionURL = "https://www.ccleaner.com/ccleaner/version-history";
 
             // Read the current version from the CCleaner site
             string currentVersionData = this.readURL(latestVersionURL);
