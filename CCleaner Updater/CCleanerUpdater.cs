@@ -1,4 +1,4 @@
-﻿using NSoup;
+using NSoup;
 using System;
 using System.Windows.Forms;
 using System.Diagnostics;
@@ -246,14 +246,14 @@ namespace CCleaner_Updater
 
             // Use NSoup to parse the HTML and find the download URL
             NSoup.Nodes.Document doc = NSoupClient.Parse(downLoadLinkData);
-            NSoup.Nodes.Element el = doc.GetElementsByClass("btn--download").First;
+            NSoup.Nodes.Element el = doc.GetElementsByClass("box").First;
 
             string html = el.OuterHtml().ToString();
 
             if (html.IndexOf("href=\"") != -1) {
                 downloadLink = html.Substring(html.IndexOf(("href=\"")) + "href=\"".Length);
                 downloadLink = downloadLink.Substring(0, downloadLink.IndexOf(("\">")));
-
+                downloadLink = downloadLink.Substring(0, downloadLink.IndexOf(".exe") + 4);
                 if (downloadLink.Equals("")) {
                     MessageBox.Show("Unable to get the download link from the CCleaner web site");
                     System.Environment.Exit(1);
