@@ -132,7 +132,7 @@ namespace CCleaner_Updater
             string latestVersion = getLatestCCleanerVersion();
 
             // Compare installed and latest versions.
-            if (!installedCCleanerVersion.Equals(latestVersion)) {
+            if (installedCCleanerVersion.Equals("") || !installedCCleanerVersion.Equals(latestVersion)) {
                 // Scrape the CCleaner sites' HTML for the latest version
                 downloadLink = getDownloadLink();
 
@@ -147,6 +147,10 @@ namespace CCleaner_Updater
                 // Download the installer
                 using (var client = new WebClient()) {
                     try {
+                        ServicePointManager.Expect100Continue = true;
+                        
+                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
                         client.DownloadFile(downloadLink, "ccsetup.exe");
                     } catch (Exception e) {
                         if (silentRun == false) {
